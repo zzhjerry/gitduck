@@ -9,7 +9,7 @@
   <script src="bower_components/underscore/underscore-min.js"></script>
 </head>
 <body>
-  <div ng-app="Sports">
+  <div ng-app="Gitduck">
     <div ng-controller="MainController">
       <h2 class="w3-container text-center w3-blue">{{ projectTitle }}</h2>
       <div class="w3-row">
@@ -48,68 +48,8 @@
       </div>
     </div>
   </div>
-  <script>
-  (function() {
-
-   angular
-     .module("Sports", [])
-     .controller("MainController", ["$scope", "$rootScope", "$http", ControllerFunc])
-     .controller("ModalController", ["$scope", ModalControllerFunc]);
-
-     function ControllerFunc($scope, $rootScope, $http) {
-       $scope.projectTitle = "Project Lorem";
-       $scope.status = {
-         "No MileStone": [],
-         "To Do": [],
-         "Doing": [],
-         "In Review": []
-       };
-
-       $http.get("https://api.github.com/repos/zzhjerry/gitduck/issues?state=open&label=project-lorem")
-        .success(function (response) {
-          response.forEach(function(issue) {
-            console.log(issue.milestone && issue.milestone.title);
-            if (issue.milestone) {
-              switch(issue.milestone.title) {
-                case "To-Do":
-                  $scope.status["To Do"].push(issue);
-                  break;
-                case "Doing":
-                  $scope.status["Doing"].push(issue);
-                  break;
-                case "In Review":
-                  $scope.status["In Review"].push(issue);
-                  break;
-              }
-            }
-            else {
-              $scope.status["No MileStone"].push(issue);
-            }
-          })
-        })
-        .error(function (response) {
-          consolg.log(response);
-        });
-
-      $scope.showModal = function (issue) {
-        console.log(issue);
-        $rootScope.$broadcast('showModal', issue);
-      }
-    };
-
-  function ModalControllerFunc($scope) {
-     $scope.$on('showModal', function(event, issue) {
-        console.log(issue);
-        $scope.issue = issue;
-        document.getElementById('modal').style.display = 'block';
-     });
-
-     $scope.closeModal = function() {
-        document.getElementById('modal').style.display = 'none';
-     }
-  }
-
-  })()
-  </script>
+  <script src="app/app.js"></script>
+  <script src="app/controller.js"></script>
+  <script src="app/modalController.js"></script>
 </body>
 </html>
