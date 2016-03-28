@@ -1,9 +1,9 @@
 (function() {
 
   angular.module('Gitduck')
-    .factory('setup', setupFactory);
+    .factory('setup', ['$httpParamSerializer', setupFactory]);
 
-    function setupFactory() {
+    function setupFactory($httpParamSerializer) {
 
       return {
         projectTitle: projectTitle,
@@ -20,10 +20,11 @@
       };
 
       function url(options) {
+        var root = 'https://api.github.com/repos/';
         var repoName = options.repoName;
         var topic = options.topic;
-        var root = 'https://api.github.com/repos/';
-        return root + repoName + '/' + topic
+        var params = $httpParamSerializer(options.params);
+        return root + repoName + '/' + topic + '?' + params
       }
     }
 

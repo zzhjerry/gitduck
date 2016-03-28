@@ -17,17 +17,17 @@
     });
     var endpoint = setup.url({
       repoName: 'zzhjerry/gitduck',
-      topic: 'issues'
-    });
-
-    $http({
-      method: 'GET',
-      url: endpoint,
+      topic: 'issues',
       params: {
         state: 'open',
         label: 'project-lorem'
       }
-    }).success(function (response) {
+    });
+
+    console.log(endpoint);
+
+    $http.get(endpoint)
+      .success(function (response) {
         response.forEach(function(issue) {
           console.log(issue.milestone && issue.milestone.title);
           if (issue.milestone) {
