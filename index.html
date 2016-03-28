@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tech team on-going projects overview</title>
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="w3.css">
+  <script src="bower_components/angularjs/angular.min.js"></script>
+  <script src="bower_components/underscore/underscore-min.js"></script>
+</head>
+<body>
+  <div ng-app="Sports">
+    <div ng-controller="MainController">
+      <h2 class="w3-container text-center w3-blue">{{ projectTitle }}</h2>
+      <div class="w3-row">
+
+        <div class="w3-col l3 w3-container" ng-repeat="(key, value) in status">
+
+          <h4 class="w3-container w3-teal text-center">{{ key }}</h4>
+
+          <div style="overflow-y:auto height:100%">
+            <div class="w3-card-2" ng-repeat="issue in value">
+              <h6 class="w3-container w3-deep-orange">
+                <a href="{{ issue.html_url }}">{{ issue.title }}</a>
+              </h6>
+              <p class="w3-container">{{ issue.body }}<span class="small w3-btn" ng-click="showModal(issue)">details</button>
+                <span class="w3-tag w3-right w3-small w3-blue">{{ issue.assignee.login }}</span>
+                </p>
+            </div>
+          </div>
+
+        </div>
+
+        <div ng-controller="ModalController">
+          <div id="modal" class="w3-modal">
+            <div class="w3-modal-content">
+              <header class="w3-container w3-blue"><span ng-click="closeModal()" class="w3-closebtn">x</span><h2>Hi There {{ issue.title }}</h2></header>
+              <div class="w3-container">
+                <p>{{ issue.body }}</p>
+              </div>
+              <footer class="w3-container w3-blue">
+                <p class="w3-right">Working by {{ issue.assignee.login }}</p>
+              </footer>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <script>
+  (function() {
+
+   angular
+     .module("Sports", [])
+     .controller("MainController", ["$scope", "$rootScope", "$http", ControllerFunc])
+     .controller("ModalController", ["$scope", ModalControllerFunc]);
+
+     function ControllerFunc($scope, $rootScope, $http) {
+       $scope.projectTitle = "Project Lorem";
+       $scope.status = {
+         "No MileStone": [],
+         "To Do": [],
+         "Doing": [],
+         "In Review": []
+       };
+
+       $http.get("https://api.github.com/repos/zzhjerry/gitduck/issues?state=open&label=project-lorem")
+        .success(function (response) {
+          response.forEach(function(issue) {
+            console.log(issue.milestone && issue.milestone.title);
+            if (issue.milestone) {
+              switch(issue.milestone.title) {
+                case "To-Do":
+                  $scope.status["To Do"].push(issue);
+                  break;
+                case "Doing":
+                  $scope.status["Doing"].push(issue);
+                  break;
+                case "In Review":
+                  $scope.status["In Review"].push(issue);
+                  break;
+              }
+            }
+            else {
+              $scope.status["No MileStone"].push(issue);
+            }
+          })
+        })
+        .error(function (response) {
+          consolg.log(response);
+        });
+
+      $scope.showModal = function (issue) {
+        console.log(issue);
+        $rootScope.$broadcast('showModal', issue);
+      }
+    };
+
+  function ModalControllerFunc($scope) {
+     $scope.$on('showModal', function(event, issue) {
+        console.log(issue);
+        $scope.issue = issue;
+        document.getElementById('modal').style.display = 'block';
+     });
+
+     $scope.closeModal = function() {
+        document.getElementById('modal').style.display = 'none';
+     }
+  }
+
+  })()
+  </script>
+</body>
+</html>
