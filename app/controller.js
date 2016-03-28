@@ -1,40 +1,50 @@
 (function() {
 
-  "use strict";
+  'use strict';
 
   angular.module('Gitduck')
-    .controller("MainController", MainControllerHandler);
+    .controller('MainController', MainControllerHandler);
 
-  MainControllerHandler.$inject = ["$scope", "$rootScope", "$http"];
+  MainControllerHandler.$inject = ['$scope', '$rootScope', '$http', 'setup'];
 
-  function MainControllerHandler($scope, $rootScope, $http) {
-    $scope.projectTitle = "Project Lorem";
-    $scope.status = {
-      "No MileStone": [],
-      "To Do": [],
-      "Doing": [],
-      "In Review": []
-    };
+  function MainControllerHandler($scope, $rootScope, $http, setup) {
+    $scope.projectTitle = setup.projectTitle('Project Lorem');
+    $scope.status = setup.status({
+      'No MileStone': [],
+      'To Do': [],
+      'Doing': [],
+      'In Review': []
+    });
+    var endpoint = setup.url({
+      repoName: 'zzhjerry/gitduck',
+      topic: 'issues'
+    });
 
-    $http.get("https://api.github.com/repos/zzhjerry/gitduck/issues?state=open&label=project-lorem")
-      .success(function (response) {
+    $http({
+      method: 'GET',
+      url: endpoint,
+      params: {
+        state: 'open',
+        label: 'project-lorem'
+      }
+    }).success(function (response) {
         response.forEach(function(issue) {
           console.log(issue.milestone && issue.milestone.title);
           if (issue.milestone) {
             switch(issue.milestone.title) {
-              case "To-Do":
-                $scope.status["To Do"].push(issue);
+              case 'To-Do':
+                $scope.status['To Do'].push(issue);
                 break;
-              case "Doing":
-                $scope.status["Doing"].push(issue);
+              case 'Doing':
+                $scope.status['Doing'].push(issue);
                 break;
-              case "In Review":
-                $scope.status["In Review"].push(issue);
+              case 'In Review':
+                $scope.status['In Review'].push(issue);
                 break;
             }
           }
           else {
-            $scope.status["No MileStone"].push(issue);
+            $scope.status['No MileStone'].push(issue);
           }
         })
       })
