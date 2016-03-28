@@ -7,7 +7,7 @@
 
       var API = {
         projectTitle: projectTitle,
-        status: status,
+        milestones: milestones,
         url: url
       };
 
@@ -15,8 +15,12 @@
         return title
       };
 
-      function status(status) {
-        return status
+      function milestones(options) {
+        obj = {};
+        options.forEach(function(milestone) {
+          obj[milestone] = [];
+        });
+        return obj
       };
 
       function url(options) {
