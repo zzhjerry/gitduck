@@ -5,28 +5,15 @@
   angular.module('Gitduck')
     .controller('MainController', MainControllerHandler);
 
-  MainControllerHandler.$inject = ['$scope', '$rootScope', '$http', 'setup'];
+  MainControllerHandler.$inject = [
+    '$scope', '$rootScope', '$http', 'setup', 'configuration'];
 
-  function MainControllerHandler($scope, $rootScope, $http, setup) {
+  function MainControllerHandler($scope, $rootScope, $http, setup, configuration) {
 
     init();
 
     function init() {
-      setup.initiate({
-        milestoneWhiteList: [
-          'To-Do',
-          'Doing',
-          'In Review'
-        ],
-        requestEndpoint: {
-          repoName: 'zzhjerry/gitduck',
-          topic: 'issues',
-          params: {
-            state: 'open',
-            label: 'project-lorem'
-          }
-        }
-      });
+      setup.initiate(configuration.defaults);
 
       $scope.issuesByMilestone = setup.populate();
     };
@@ -36,9 +23,6 @@
       $rootScope.$broadcast('showModal', issue);
     };
 
-    $scope.$on('switch:project', function() {
-       $scope.issuesByMilestone = setup.populate();
-    });
   }
 
 })()

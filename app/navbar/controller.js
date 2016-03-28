@@ -3,20 +3,13 @@
   angular.module('Gitduck')
     .controller('navbarController', NavbarControllerHandler);
 
-  NavbarControllerHandler.$inject = ['$rootScope', '$scope', 'setup'];
+  NavbarControllerHandler.$inject = [
+    '$rootScope', '$scope', 'setup', 'configuration'];
 
-  function NavbarControllerHandler($rootScope, $scope, setup) {
-    $scope.projectTitles = ['Project Lorem', 'Project Sahala'];
-    $scope.setMaster = function(title) {
-      $scope.title = title;
-    };
-
-    $scope.toggleClass = function(title) {
-      selected = $scope.title === title;
-      return {
-        'w3-blue': selected,
-        'w3-white': !selected
-      }
+  function NavbarControllerHandler($rootScope, $scope, setup, configuration) {
+    $scope.projectTitles = [];
+    for (var key in configuration) {
+      $scope.projectTitles.push(configuration[key].title);
     }
 
   }
