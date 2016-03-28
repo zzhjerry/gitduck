@@ -9,12 +9,13 @@
 
   function MainControllerHandler($scope, $rootScope, $http, setup) {
     $scope.projectTitle = setup.projectTitle('Project Lorem');
-    $scope.issuesWithMilestone = setup.milestones([
+    var milestoneWhiteList = [
       'No MileStone',
-      'To Do',
+      'To-Do',
       'Doing',
       'In Review'
-    ]);
+    ];
+    $scope.issuesWithMilestone = setup.milestones(milestoneWhiteList);
     var url = setup.url({
       repoName: 'zzhjerry/gitduck',
       topic: 'issues',
@@ -31,16 +32,9 @@
         response.forEach(function(issue) {
           console.log(issue.milestone && issue.milestone.title);
           if (issue.milestone) {
-            switch(issue.milestone.title) {
-              case 'To-Do':
-                $scope.issuesWithMilestone['To Do'].push(issue);
-                break;
-              case 'Doing':
-                $scope.issuesWithMilestone['Doing'].push(issue);
-                break;
-              case 'In Review':
-                $scope.issuesWithMilestone['In Review'].push(issue);
-                break;
+            var milestoneTitle = issue.milestone.title;
+            if (milestoneWhiteList.indexOf(milestoneTitle) != -1) {
+              $scope.issuesWithMilestone[milestoneTitle].push(issue);
             }
           }
           else {
