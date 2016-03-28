@@ -2,7 +2,7 @@
 
   "use strict";
 
-  angular.module("Gitduct")
+  angular.module("Gitduck")
     .controller("ModalController", ModalControllerHandler);
 
   ModalControllerHandler.$inject = ["$scope"];

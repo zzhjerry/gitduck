@@ -3,11 +3,11 @@
   "use strict";
 
   angular.module('Gitduck')
-    .controller("MainController", ControllerFunc);
+    .controller("MainController", MainControllerHandler);
 
-  ControllerFunc.$inject = ["$scope", "$rootScope", "$http"];
+  MainControllerHandler.$inject = ["$scope", "$rootScope", "$http"];
 
-  function ControllerFunc($scope, $rootScope, $http) {
+  function MainControllerHandler($scope, $rootScope, $http) {
     $scope.projectTitle = "Project Lorem";
     $scope.status = {
       "No MileStone": [],
