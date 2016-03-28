@@ -3,14 +3,14 @@
   angular.module('Gitduck')
     .controller('navbarController', NavbarControllerHandler);
 
-  NavbarControllerHandler.$inject = ['$scope', 'setup'];
+  NavbarControllerHandler.$inject = ['$rootScope', '$scope', 'setup'];
 
-  function NavbarControllerHandler($scope, setup) {
+  function NavbarControllerHandler($rootScope, $scope, setup) {
     $scope.projectTitles = ['Project Lorem', 'Project Sahala'];
     $scope.setMaster = function(title) {
       $scope.title = title;
-      setup.milestoneWhiteList = ['To-Do', 'Doing'];
     };
+
     $scope.toggleClass = function(title) {
       selected = $scope.title === title;
       return {

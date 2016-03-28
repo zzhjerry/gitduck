@@ -47,7 +47,7 @@
             })
           })
           .error(function (response) {
-            consolg.log(response);
+            console.log(response);
           });
         return this.issuesByMilestone
       }

@@ -34,7 +34,11 @@
     $scope.showModal = function (issue) {
       console.log(issue);
       $rootScope.$broadcast('showModal', issue);
-    }
+    };
+
+    $scope.$on('switch:project', function() {
+       $scope.issuesByMilestone = setup.populate();
+    });
   }
 
 })()
