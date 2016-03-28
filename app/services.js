@@ -5,7 +5,7 @@
 
     function setupFactory($httpParamSerializer) {
 
-      return {
+      var API = {
         projectTitle: projectTitle,
         status: status,
         url: url
@@ -26,6 +26,8 @@
         var params = $httpParamSerializer(options.params);
         return root + repoName + '/' + topic + '?' + params
       }
+
+      return API
     }
 
 })()
