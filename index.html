@@ -10,8 +10,12 @@
 </head>
 <body>
   <div ng-app="Gitduck">
+
+    <div class="w3-container" style="margin-top:3px" ng-controller="navbarController">
+      <button style="margin:10px" ng-repeat="title in projectTitles" class="w3-btn w3-round-xxlarge" ng-class="toggleClass(title)" ng-click="setMaster(title)" >{{ title }}</button>
+    </div>
+
     <div ng-controller="MainController">
-      <h2 class="w3-container text-center w3-blue">{{ projectTitle }}</h2>
       <div class="w3-row">
 
         <div class="w3-col l3 w3-container" ng-repeat="(key, value) in issuesWithMilestone">
@@ -52,5 +56,6 @@
   <script src="app/services.js"></script>
   <script src="app/controller.js"></script>
   <script src="app/modalController.js"></script>
+  <script src="app/navbar/controller.js"></script>
 </body>
 </html>
