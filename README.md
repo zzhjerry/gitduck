@@ -5,7 +5,7 @@ Give me github labels, give you back issues segmented by milestone in kanban vie
 
     git clone git@github.com:zzhjerry/gitduck.git
     open index.html
-  
+
 ## configure
 
 1. open `app/app.js`
