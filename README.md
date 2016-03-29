@@ -14,15 +14,16 @@ Give me github labels, give you back issues segmented by milestone in kanban vie
 
 ```
 defaults: {
-  title: "Project Lorem",
+  title: "Project Lorem", // your project title
   requestEndpoint: {
-    repoName: 'zzhjerry/gitduck',
-    topic: 'issues',
+    repoName: 'zzhjerry/gitduck', // your repo with :owner/:reponame format
+    topic: 'issues', // don’t touch this yet
     params: {
       state: 'open',
-      label: 'project-lorem'
+      label: 'project-lorem' // project label
     }
   },
+  // milestones you want to show
   milestoneWhiteList: [
     'To-Do',
     'Doing',
@@ -32,3 +33,5 @@ defaults: {
 ```
 
 Then overwrite the default values to fit in your specific project name, repo, project-label, and milestones you want to show.
+
+The label name and milestones in the `milestoneWhiteList` needs to be exactly the same one showing in your github repo
