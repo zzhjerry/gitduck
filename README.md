@@ -1,6 +1,8 @@
 # gitduck
 Give me github labels, give you back issues segmented by milestone in kanban view
 
+![image](https://cloud.githubusercontent.com/assets/4972027/14108151/9ed5083a-f5ee-11e5-95c5-c07aec250304.png)
+
 ## setup
 
     git clone git@github.com:zzhjerry/gitduck.git
