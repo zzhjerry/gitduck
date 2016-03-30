@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <title>Tech team on-going projects overview</title>
-  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="static/css/w3.css">
   <script src="static/js/angular.min.js"></script>
 </head>
@@ -32,22 +31,23 @@
 
         </div>
 
-        <div ng-controller="ModalController">
-          <div id="modal" class="w3-modal">
-            <div class="w3-modal-content">
-              <header class="w3-container w3-blue"><span ng-click="closeModal()" class="w3-closebtn">x</span><h2>{{ issue.title }}</h2></header>
-              <div class="w3-container">
-                <p>{{ issue.body }}</p>
-              </div>
-              <footer class="w3-container w3-blue">
-                <p class="w3-right">Working by {{ issue.assignee.login }}</p>
-              </footer>
-            </div>
-          </div>
-        </div>
-
       </div>
     </div>
+
+    <div ng-controller="ModalController">
+      <div id="modal" class="w3-modal">
+        <div style="width:30%" class="w3-modal-content w3-round-xlarge">
+          <header class="w3-container w3-border-bottom w3-border-red"><span ng-click="closeModal()" class="w3-closebtn">x</span><h2>{{ issue.title }}</h2></header>
+          <div class="w3-container">
+            <p>{{ issue.body }}</p>
+          </div>
+          <footer class="w3-container w3-border-top w3-border-red">
+            <p class="w3-right">Working by {{ issue.assignee.login }}</p>
+          </footer>
+        </div>
+      </div>
+    </div>
+
   </div>
   <script src="app/app.js"></script>
   <script src="app/services.js"></script>
